@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elton Karata Otwori — IT &amp; Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F6F5;
+    --panel: #FFFFFF;
+    --ink: #14213B;
+    --ink-soft: #4B5768;
+    --accent: #2F6F63;
+    --accent-soft: #E4EEEC;
+    --amber: #D98E3B;
+    --line: #D8DEDC;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- topbar ---------- */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:var(--bg);
+    position:sticky; top:0; z-index:10;
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .brand{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.02em;
+    color:var(--ink-soft);
+  }
+  .brand strong{ color:var(--ink); }
+  .nav{
+    display:flex; gap:22px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .nav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+  }
+  .nav a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:72px 0 56px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+  }
+  .cursor{
+    display:inline-block; width:9px; height:1.1em;
+    background:var(--accent);
+    margin-left:2px; vertical-align:-2px;
+    animation:blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .cursor{ animation:none; } }
+
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(36px, 6vw, 58px);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+  }
+  .role-line{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+  .role-line span{ color:var(--accent); }
+
+  .tagline{
+    max-width:56ch;
+    font-size:17px;
+    color:var(--ink-soft);
+    margin-top:20px;
+  }
+
+  .cta-row{
+    display:flex; flex-wrap:wrap; gap:12px;
+    margin-top:32px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    text-decoration:none;
+    padding:11px 18px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .btn.primary{
+    background:var(--ink);
+    color:var(--bg);
+  }
+  .btn.primary:hover{ background:var(--accent); border-color:var(--accent); }
+  .btn:not(.primary):hover{ background:var(--ink); color:var(--bg); }
+
+  /* ---------- section shell ---------- */
+  section{ padding:52px 0; border-top:1px solid var(--line); }
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:28px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+  }
+  h2{
+    font-family:var(--display);
+    font-size:24px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  .about-grid p{ color:var(--ink-soft); font-size:15.5px; }
+  .about-grid p + p{ margin-top:14px; }
+  .fact-list{
+    font-family:var(--mono);
+    font-size:13px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .fact-list div{
+    display:flex; justify-content:space-between;
+    border-bottom:1px dashed var(--line);
+    padding-bottom:8px;
+  }
+  .fact-list span:first-child{ color:var(--ink-soft); }
+  .fact-list span:last-child{ color:var(--ink); text-align:right; }
+
+  /* ---------- skills as schema table ---------- */
+  .schema{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  .schema thead th{
+    font-family:var(--mono);
+    font-size:12px;
+    text-align:left;
+    color:var(--ink-soft);
+    font-weight:500;
+    padding:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    text-transform:lowercase;
+  }
+  .schema tbody td{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  .schema tbody tr:last-child td{ border-bottom:none; }
+  .field-name{
+    font-family:var(--mono);
+    color:var(--accent);
+    white-space:nowrap;
+    padding-right:20px !important;
+  }
+  .field-type{
+    font-family:var(--mono);
+    color:var(--ink-soft);
+    white-space:nowrap;
+    padding-right:20px !important;
+  }
+  .field-detail{ color:var(--ink); }
+
+  /* ---------- experience ---------- */
+  .entry{ margin-bottom:30px; }
+  .entry:last-child{ margin-bottom:0; }
+  .entry-head{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    margin-bottom:4px;
+  }
+  .entry-title{ font-weight:600; font-size:16.5px; }
+  .entry-date{ font-family:var(--mono); font-size:13px; color:var(--ink-soft); }
+  .entry-sub{ font-family:var(--mono); font-size:13px; color:var(--accent); margin-bottom:12px; }
+  .entry ul{ padding-left:18px; color:var(--ink-soft); font-size:15px; }
+  .entry li{ margin-bottom:6px; }
+
+  /* ---------- projects ---------- */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+  .proj-card{
+    border:1px solid var(--line);
+    background:var(--panel);
+    padding:20px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .status{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    display:inline-flex; align-items:center; gap:6px;
+    width:fit-content;
+    padding:4px 9px;
+    border:1px solid var(--line);
+  }
+  .status.live{ color:var(--accent); border-color:var(--accent); }
+  .status.queued{ color:var(--amber); border-color:var(--amber); }
+  .proj-card h3{
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:600;
+  }
+  .proj-card p{ font-size:13.5px; color:var(--ink-soft); flex-grow:1; }
+  .proj-card .stack{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+
+  /* ---------- contact ---------- */
+  .contact-grid{
+    display:flex; flex-wrap:wrap; gap:16px 40px;
+    align-items:center; justify-content:space-between;
+  }
+  .contact-links{
+    display:flex; flex-direction:column; gap:10px;
+    font-family:var(--mono); font-size:14px;
+  }
+  .contact-links a{ text-decoration:none; }
+  .contact-links a:hover{ color:var(--accent); }
+  .contact-note{ max-width:34ch; font-size:14px; color:var(--ink-soft); }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:24px 0 40px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:720px){
+    .nav{ gap:14px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .proj-grid{ grid-template-columns:1fr; }
+    .schema thead{ display:none; }
+    .schema tbody td{ display:block; padding:4px 0; border-bottom:none; }
+    .schema tbody tr{ display:block; padding:14px 0; border-bottom:1px solid var(--line); }
+    .field-detail{ padding-top:2px !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">eko<strong>.dev</strong></div>
+      <nav class="nav">
+        <a href="#about">about</a>
+        <a href="#skills">skills</a>
+        <a href="#experience">experience</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero wrap">
+    <div class="eyebrow">SELECT * FROM profile WHERE status = 'open_to_work'</div>
+    <h1>Elton Karata<br>Otwori</h1>
+    <div class="role-line">IT <span>·</span> Data Science <span>·</span> Systems &amp; Analytics</div>
+    <p class="tagline">I turn messy data and unreliable systems into things people can trust and act on — grounded in Python, SQL, and hands-on IT operations experience from Kenya Broadcasting Corporation.<span class="cursor"></span></p>
+    <div class="cta-row">
+      <a class="btn primary" href="mailto:eltonotwori44@gmail.com">email me</a>
+      <a class="btn" href="tel:+254115075046">+254 115 075 046</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p>I'm a BSc Informatics graduate from Moi University, based in Eldoret, Kenya. My interest sits at the intersection of data and infrastructure — I like understanding how systems are built, and then using data to make them work better.</p>
+          <p>During my internship at Kenya Broadcasting Corporation, I supported IT operations inside a national broadcaster — a good introduction to how technology actually runs at scale, day to day, under real constraints.</p>
+        </div>
+        <div class="fact-list">
+          <div><span>location</span><span>Eldoret, Kenya</span></div>
+          <div><span>education</span><span>BSc Informatics, Moi University</span></div>
+          <div><span>certification</span><span>Data Science with Python</span></div>
+          <div><span>focus</span><span>IT · Data · Systems</span></div>
+          <div><span>availability</span><span>Open to opportunities</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>Skills</h2>
+      </div>
+      <table class="schema">
+        <thead>
+          <tr><th>field</th><th>type</th><th>detail</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">programming</td>
+            <td class="field-type">language</td>
+            <td class="field-detail">Python, HTML, CSS</td>
+          </tr>
+          <tr>
+            <td class="field-name">data_science</td>
+            <td class="field-type">toolkit</td>
+            <td class="field-detail">Pandas, NumPy, Jupyter Notebooks, data visualisation</td>
+          </tr>
+          <tr>
+            <td class="field-name">databases</td>
+            <td class="field-type">systems</td>
+            <td class="field-detail">Relational database concepts, SQL fundamentals, cloud storage &amp; file management</td>
+          </tr>
+          <tr>
+            <td class="field-name">cybersecurity</td>
+            <td class="field-type">practice</td>
+            <td class="field-detail">Secure browsing, password management, phishing identification &amp; prevention</td>
+          </tr>
+          <tr>
+            <td class="field-name">productivity</td>
+            <td class="field-type">tools</td>
+            <td class="field-detail">Microsoft Office, Google Workspace, Zoom, Microsoft Teams</td>
+          </tr>
+          <tr>
+            <td class="field-name">design</td>
+            <td class="field-type">tool</td>
+            <td class="field-detail">Adobe Photoshop — image editing &amp; graphic production</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Experience</h2>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">IT Intern — Kenya Broadcasting Corporation (KBC)</span>
+          <span class="entry-date">Sep 2024 – Dec 2024</span>
+        </div>
+        <div class="entry-sub">Nairobi, Kenya</div>
+        <ul>
+          <li>Gained practical exposure to IT operations within a national public broadcasting environment.</li>
+          <li>Assisted technical staff with day-to-day system maintenance, troubleshooting, and digital operations.</li>
+          <li>Applied academic knowledge of data management, networking, and IT support in a live professional setting.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Bachelor of Science in Informatics — Moi University</span>
+          <span class="entry-date">Sep 2021 – Jul 2025</span>
+        </div>
+        <div class="entry-sub">Eldoret, Kenya</div>
+        <ul>
+          <li>Relevant coursework: Database Systems, Software Engineering, Network Security, Data Analysis, Systems Analysis &amp; Design.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>Projects</h2>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <span class="status live">● live</span>
+          <h3>This portfolio</h3>
+          <p>A schema-inspired personal site — because everything in this profile is, at heart, structured data.</p>
+          <div class="stack">HTML · CSS · GitHub Pages</div>
+        </div>
+        <div class="proj-card">
+          <span class="status queued">○ in progress</span>
+          <h3>Retail sales analysis</h3>
+          <p>Cleaning and visualizing a public retail dataset to surface seasonal trends and top-performing categories.</p>
+          <div class="stack">Python · Pandas · Matplotlib</div>
+        </div>
+        <div class="proj-card">
+          <span class="status queued">○ in progress</span>
+          <h3>Inventory database</h3>
+          <p>A small relational database with real queries for stock reporting and low-stock alerts.</p>
+          <div class="stack">SQLite · SQL</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid">
+        <p class="contact-note">Open to IT, data, and systems-focused roles. I usually reply within a day.</p>
+        <div class="contact-links">
+          <a href="mailto:eltonotwori44@gmail.com">eltonotwori44@gmail.com</a>
+          <a href="tel:+254115075046">+254 115 075 046</a>
+          <span>Eldoret, Kenya</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>© 2026 Elton Karata Otwori</span>
+    <span>built with HTML &amp; CSS</span>
+  </footer>
+
+</body>
+</html>
