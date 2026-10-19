@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+.DS_Store
+
+# private CV sources/exports (the public copy lives in public/)
+cv/
