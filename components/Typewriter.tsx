@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 // Types each word out, pauses, deletes it, then moves to the next.
 export default function Typewriter({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
-  const [text, setText] = useState("");
+  // Start with the first word already typed so it's there before JS runs.
+  const [text, setText] = useState(words[0]);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {

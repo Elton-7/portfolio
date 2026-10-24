@@ -24,36 +24,57 @@ export default function Home() {
         <section className="hero container">
           <div className="glow" aria-hidden />
           <div className="glow glow-2" aria-hidden />
-          <a href={profile.currently.url} className="status" target="_blank" rel="noreferrer">
-            <span className="status-dot" aria-hidden />
-            Currently building <strong>{profile.currently.label}</strong> ↗
-          </a>
-          <p className="mono accent">Hi, my name is</p>
-          <h1 className="gradient-text">{profile.name}.</h1>
-          <h2 className="hero-sub">
-            <Typewriter words={profile.roles} />
-          </h2>
-          <p className="hero-tagline">{profile.tagline}</p>
-          <div className="hero-actions">
-            <a href="#projects" className="btn btn-primary">
-              View my work
+          <div className="hero-text">
+            <a href={profile.currently.url} className="status" target="_blank" rel="noreferrer">
+              <span className="status-dot" aria-hidden />
+              Currently building <strong>{profile.currently.label}</strong> ↗
             </a>
-            {profile.resumeUrl && (
-              <a href={profile.resumeUrl} className="btn" target="_blank" rel="noreferrer">
-                Résumé
+            <p className="mono accent">Hi, my name is</p>
+            <h1 className="gradient-text">{profile.name}.</h1>
+            <h2 className="hero-sub">
+              <Typewriter words={profile.roles} />
+            </h2>
+            <p className="hero-tagline">{profile.tagline}</p>
+            <div className="hero-actions">
+              <a href="#projects" className="btn btn-primary">
+                View my work
               </a>
-            )}
-            <a href={`mailto:${profile.email}`} className="btn">
-              Contact me
-            </a>
+              {profile.resumeUrl && (
+                <a href={profile.resumeUrl} className="btn" target="_blank" rel="noreferrer">
+                  Résumé
+                </a>
+              )}
+              <a href={`mailto:${profile.email}`} className="btn">
+                Contact me
+              </a>
+            </div>
+            <div className="hero-socials mono small">
+              {profile.socials.map((s) => (
+                <a key={s.label} href={s.url} target="_blank" rel="noreferrer">
+                  {s.label} ↗
+                </a>
+              ))}
+              <span className="muted">📍 {profile.location}</span>
+            </div>
           </div>
-          <div className="hero-socials mono small">
-            {profile.socials.map((s) => (
-              <a key={s.label} href={s.url} target="_blank" rel="noreferrer">
-                {s.label} ↗
-              </a>
-            ))}
-            <span className="muted">📍 {profile.location}</span>
+          <div className={profile.photo ? "avatar avatar-photo" : "avatar"}>
+            {profile.photo ? (
+              <Image
+                src={profile.photo}
+                alt={profile.name}
+                width={600}
+                height={800}
+                sizes="(max-width: 860px) 180px, 320px"
+                priority
+              />
+            ) : (
+              <span className="avatar-initials" aria-hidden>
+                {profile.name
+                  .split(" ")
+                  .map((w) => w[0])
+                  .join("")}
+              </span>
+            )}
           </div>
         </section>
 

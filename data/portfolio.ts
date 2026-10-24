@@ -8,6 +8,7 @@ export const profile = {
   currently: { label: "Axis Learning", url: "https://axislearning.co.ke" },
   tagline:
     "I build fast, accessible web apps and enjoy turning messy problems into clean, simple software.",
+  photo: "/profile.webp", // 3:4 portrait in /public; empty shows initials
   location: "Eldoret, Kenya",
   email: "eltonotwori44@gmail.com",
   phone: "+254 115 075 046", // set to "" to hide phone and WhatsApp
